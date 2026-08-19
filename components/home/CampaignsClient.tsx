@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -35,9 +36,18 @@ export default function CampaignsClient({ campaigns }: CampaignsClientProps) {
           <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-gray-400">
             Selected Work
           </span>
-          <span className="text-[11px] font-mono text-gray-300">
-            {String(campaigns.length).padStart(2, "0")} Projects
-          </span>
+          <div className="flex items-center gap-4">
+            <span className="text-[11px] font-mono text-gray-300">
+              {String(campaigns.length).padStart(2, "0")} Projects
+            </span>
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 rounded-full border border-stone-300 px-4 py-2 text-[10px] font-mono tracking-[0.2em] uppercase text-stone-700 transition-colors duration-300 hover:border-stone-900 hover:text-stone-900"
+            >
+              View All
+              <ArrowUpRight size={13} strokeWidth={1.5} />
+            </Link>
+          </div>
         </motion.div>
 
         {/* Featured project — asymmetric split */}

@@ -10,6 +10,7 @@ const allLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/team", label: "Team" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/work/residential", label: "Residential" },
   { href: "/work/sustainable", label: "Sustainable" },
   { href: "/work/hospitality", label: "Hospitality" },

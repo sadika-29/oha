@@ -20,7 +20,7 @@ export default function HospitalityPage() {
           </div>
 
           <div className="md:col-span-2">
-            <p className="text-[#BC4749] text-base md:text-lg leading-relaxed mb-8">
+            <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-8">
               Hotels, restaurants, and bars designed to create memorable guest
               experiences through atmosphere, materiality, and flow.
             </p>

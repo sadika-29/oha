@@ -5,13 +5,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
+import { Menu, ChevronDown, ArrowUpRight } from "lucide-react";
 import logo from "../../public/logo.png";
 
 const navItems = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Team", href: "/team" },
+  { label: "Projects", href: "/projects" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -20,6 +22,8 @@ const workItems = [
   { label: "Sustainable Design", href: "/work/sustainable" },
   { label: "Hospitality Architecture", href: "/work/hospitality" },
   { label: "Interior Design", href: "/work/interiors" },
+  { label: "Commercial Design", href: "/work/commercial" },
+  { label: "Education Design", href: "/work/education" },
 ];
 
 const Navbar: React.FC = () => {
@@ -37,7 +41,7 @@ const Navbar: React.FC = () => {
     <nav className="sticky top-0 z-30 flex items-center justify-between px-5 md:px-8 py-4 bg-white border-b border-gray-100">
       {/* Logo */}
       <Link href="/">
-        <Image src={logo} width={44} height={44} alt="OHA Design Workshop" />
+        <Image src={logo} width={58} height={58} alt="OHA Design Workshop" />
       </Link>
 
       {/* Desktop links */}
@@ -122,12 +126,6 @@ const Navbar: React.FC = () => {
               <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-gray-400">
                 Menu
               </span>
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="text-gray-400 hover:text-gray-900 transition-colors"
-              >
-                <X size={18} strokeWidth={1.5} />
-              </button>
             </div>
 
             {/* Mobile links */}

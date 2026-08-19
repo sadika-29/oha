@@ -20,7 +20,7 @@ export default function InteriorsPage() {
           </div>
 
           <div className="md:col-span-2">
-            <p className="text-[#BC4749] text-base md:text-lg leading-relaxed mb-8">
+            <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-8">
               Material, texture, and light — complete interior environments with
               soul, for residential and commercial clients.
             </p>

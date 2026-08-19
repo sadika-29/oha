@@ -46,6 +46,26 @@ const ITEMS = [
     href: "/work/interiors",
     img: "/services/interior.png",
   },
+  {
+    id: "commercial",
+    number: "05",
+    title: "Commercial Design",
+    tag: "Commercial",
+    summary:
+      "Modern workplaces, commercial fitouts, and retail environments designed for productivity, collaboration, and environmental wellness.",
+    href: "/work/commercial",
+    img: "/services/residential.png",
+  },
+  {
+    id: "education",
+    number: "06",
+    title: "Education Design",
+    tag: "Education",
+    summary:
+      "Inspiring educational facilities, childcare centers, and collaborative classrooms built for flexible discovery and creative learning.",
+    href: "/work/education",
+    img: "/services/sustainable.png",
+  },
 ];
 
 export default function OurWorkCards() {
@@ -97,7 +117,7 @@ export default function OurWorkCards() {
 
                   {/* Background image + overlay — fades in on hover */}
                   <div
-                    className="absolute inset-0 transition-opacity duration-500"
+                    className="absolute -inset-x-6 md:-inset-x-12 inset-y-0 transition-opacity duration-500"
                     style={{ opacity: hovered === item.id ? 1 : 0 }}
                   >
                     <Image
@@ -110,7 +130,7 @@ export default function OurWorkCards() {
                     <div className="absolute inset-0 bg-black/65" />
                   </div>
 
-                  <div className="relative flex items-start md:items-center justify-between py-7 md:py-9 gap-4">
+                  <div className="relative flex items-start md:items-center justify-between py-7 md:py-9 px-6 md:px-12 gap-4">
                     {/* Number */}
                     <span
                       className={`text-xs font-mono tracking-widest w-8 flex-shrink-0 pt-1 md:pt-0 transition-colors duration-300 ${

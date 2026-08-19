@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 type TeamMember = {
   _id: string;
@@ -16,157 +17,155 @@ type TeamMember = {
 };
 
 export default function TeamPageGrid({ team }: { team: TeamMember[] }) {
-  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  // Let's find the Principal Architect (or default to the first one)
+  const principal = team.find(
+    (member) => member.position === "Principal Architect"
+  ) || team[0];
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (index: number) => ({
+  // Rest of the team members
+  const otherMembers = team.filter((member) => member._id !== principal._id);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1] as any,
-        delay: index * 0.1,
       },
-    }),
+    },
   };
 
   return (
-    <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-        {team.map((member, index) => (
-          <motion.div
-            key={member._id}
-            custom={index}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            variants={cardVariants}
-            className="group relative cursor-pointer"
-            onClick={() => setSelectedMember(member)}
-            whileHover={{ y: -8 }}
-          >
-            <div className="relative h-96 rounded-lg overflow-hidden shadow-sm bg-gray-100 transition-shadow group-hover:shadow-xl">
-              {member.imageUrl ? (
-                <Image
-                  src={member.imageUrl}
-                  alt={member.name}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                  <span className="text-6xl text-gray-400 font-light">
-                    {member.name.charAt(0)}
-                  </span>
+    <div className="space-y-16 md:space-y-24">
+      {/* Main Principal Architect Highlight */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={itemVariants}
+        className="bg-gray-50 border border-gray-100 rounded-2xl p-8 md:p-12 lg:p-16 flex flex-col md:flex-row gap-8 items-start justify-between"
+      >
+        <div className="max-w-3xl space-y-6">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-wider text-primary px-3 py-1 bg-primary/10 rounded-full inline-block mb-3">
+              {principal.position}
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-gray-900">
+              {principal.name}
+            </h2>
+          </div>
+          <p className="text-gray-700 text-lg md:text-xl leading-relaxed font-light">
+            {principal.background}
+          </p>
+          {(principal.motivation || principal.contribution) && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 border-t border-gray-200">
+              {principal.motivation && (
+                <div className="space-y-2">
+                  <h4 className="text-sm font-semibold uppercase text-gray-400 tracking-wider">
+                    Our Philosophy
+                  </h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {principal.motivation}
+                  </p>
                 </div>
               )}
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 className="text-2xl font-semibold mb-1">{member.name}</h3>
-                <p className="text-sm text-gray-200">{member.position}</p>
-                <button className="mt-4 text-xs font-medium border border-white/50 px-4 py-2 rounded hover:bg-white hover:text-gray-900 transition-colors">
-                  View Details
-                </button>
-              </div>
+              {principal.contribution && (
+                <div className="space-y-2">
+                  <h4 className="text-sm font-semibold uppercase text-gray-400 tracking-wider">
+                    Role & Directorship
+                  </h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {principal.contribution}
+                  </p>
+                </div>
+              )}
             </div>
-          </motion.div>
-        ))}
-      </div>
+          )}
+        </div>
+        <div className="self-end md:self-center">
+          <Button asChild size="lg" className="hover:scale-105 transition-transform shadow-md">
+            <Link href="/portfolio">
+              View Portfolio
+            </Link>
+          </Button>
+        </div>
+      </motion.div>
 
-      {selectedMember && (
+      {/* Other Team Members section */}
+      <div className="space-y-8">
+        <div className="border-b border-gray-200 pb-4">
+          <h3 className="text-xl md:text-2xl font-semibold tracking-tight text-gray-900">
+            Our Studio Team
+          </h3>
+        </div>
+
         <motion.div
-          className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedMember(null)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
-          <motion.div
-            className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-          >
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex items-center justify-between">
-              <div>
-                <h2 className="text-3xl font-semibold text-gray-900">
-                  {selectedMember.name}
-                </h2>
-                <p className="text-sm text-gray-600 mt-1">
-                  {selectedMember.position}
+          {otherMembers.map((member) => (
+            <motion.div
+              key={member._id}
+              variants={itemVariants}
+              className="bg-white border border-gray-100 rounded-xl p-6 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-3">
+                <div>
+                  <h4 className="text-lg font-medium text-gray-900">
+                    {member.name}
+                  </h4>
+                  <p className="text-sm font-semibold text-primary/80">
+                    {member.position}
+                  </p>
+                </div>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {member.background || member.motivation || "Highly experienced practitioner contributing with passion."}
                 </p>
               </div>
-              <button
-                onClick={() => setSelectedMember(null)}
-                className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
-              >
-                ×
-              </button>
-            </div>
-
-            <div className="p-6 space-y-6">
-              {selectedMember.imageUrl && (
-                <div className="relative h-80 rounded-lg overflow-hidden bg-gray-100">
-                  <Image
-                    src={selectedMember.imageUrl}
-                    alt={selectedMember.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              )}
-
-              {selectedMember.background && (
-                <div className="border-t border-gray-100 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Background & Experience
-                  </h3>
-                  <p className="text-gray-700 text-base leading-relaxed">
-                    {selectedMember.background}
-                  </p>
-                </div>
-              )}
-
-              {selectedMember.motivation && (
-                <div className="border-t border-gray-100 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Why They Joined
-                  </h3>
-                  <p className="text-gray-700 text-base leading-relaxed">
-                    {selectedMember.motivation}
-                  </p>
-                </div>
-              )}
-
-              {selectedMember.contribution && (
-                <div className="border-t border-gray-100 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Key Contributions
-                  </h3>
-                  <p className="text-gray-700 text-base leading-relaxed">
-                    {selectedMember.contribution}
-                  </p>
-                </div>
-              )}
-
-              {selectedMember.personalTouch && (
-                <div className="border-t border-gray-100 pt-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                    Personal
-                  </h3>
-                  <p className="text-gray-700 text-base leading-relaxed">
-                    {selectedMember.personalTouch}
-                  </p>
-                </div>
-              )}
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </motion.div>
-      )}
-    </>
+      </div>
+
+      {/* General Call to Action to leading to portfolio */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={itemVariants}
+        className="pt-8 text-center"
+      >
+        <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 md:p-12 border border-gray-100 max-w-3xl mx-auto space-y-6">
+          <h3 className="text-2xl font-semibold tracking-tight text-gray-900">
+            Discover Our Architecture & Design Output
+          </h3>
+          <p className="text-gray-600 max-w-lg mx-auto">
+            From award-winning private residences to community projects, see how our team turns vision into reality.
+          </p>
+          <div>
+            <Button asChild size="lg" variant="outline" className="hover:bg-primary hover:text-white transition-colors duration-300">
+              <Link href="/portfolio">
+                Explore the Portfolio
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 }
