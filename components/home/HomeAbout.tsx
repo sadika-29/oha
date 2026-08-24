@@ -52,7 +52,7 @@ export default function AboutUs() {
               href="/about"
               className="group inline-flex items-center gap-1.5 text-sm text-gray-900 border-b border-gray-900 pb-0.5 hover:border-gray-400 hover:text-gray-400 transition-colors duration-200"
             >
-              About the practice
+              About OHA
               <ArrowUpRight
                 size={14}
                 strokeWidth={1.5}
