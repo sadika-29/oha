@@ -15,8 +15,9 @@ export default function Banner() {
         priority
       />
 
-      {/* Gradient: dark top bar + heavier dark at bottom for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80" />
+      {/* Full-image cinematic darkening to keep text legible while blending seamlessly */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_80%,rgba(0,0,0,0.38),rgba(0,0,0,0.12)_30%,rgba(0,0,0,0.65)_100%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-transparent to-black/75" />
 
       {/* Main hero title */}
       <div className="absolute inset-0 flex items-end px-5 sm:px-10 pb-9 sm:pb-14">

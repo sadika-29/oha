@@ -14,7 +14,6 @@ const navItems = [
   { label: "Team", href: "/team" },
   { label: "Projects", href: "/projects" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Contact", href: "/contact" },
 ];
 
 const workItems = [
@@ -31,6 +30,7 @@ const Navbar: React.FC = () => {
   const [isWorkOpen, setIsWorkOpen] = useState(false);
   const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   const linkColor = (href: string) =>
     pathname === href
@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
       </Link>
 
       {/* Desktop links */}
-      <ul className="hidden md:flex items-center gap-9">
+      <ul className="hidden lg:flex items-center gap-9">
         {navItems.map((item) => (
           <li key={item.href}>
             <Link
@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
       {/* Desktop CTA */}
       <Link
         href="/contact"
-        className="hidden md:flex items-center gap-1.5 text-[11px] font-mono tracking-[0.2em] uppercase text-gray-500 hover:text-gray-900 transition-colors duration-200"
+        className="hidden lg:flex items-center gap-1.5 rounded-full bg-black px-4 py-2 text-[11px] font-mono tracking-[0.2em] uppercase text-white transition-colors duration-200 hover:bg-gray-800"
       >
         Enquire
         <ArrowUpRight size={12} strokeWidth={1.5} />
@@ -115,11 +115,11 @@ const Navbar: React.FC = () => {
       {/* Mobile hamburger */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetTrigger asChild>
-          <button className="md:hidden text-gray-600 hover:text-gray-900 transition-colors duration-200">
+          <button className="lg:hidden text-gray-600 hover:text-gray-900 transition-colors duration-200">
             <Menu size={22} strokeWidth={1.5} />
           </button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-72 p-0 border-l border-gray-100">
+        <SheetContent side="right" className="w-[85vw] max-w-sm p-0 border-l border-gray-100">
           <div className="flex flex-col h-full">
             {/* Mobile header */}
             <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100">
@@ -129,13 +129,15 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Mobile links */}
-            <ul className="flex flex-col px-7 py-8 gap-1 flex-1">
+            <ul className={`flex flex-col px-7 py-4 flex-1 transition-all duration-200 ${mobileServicesOpen ? "gap-0.5" : "gap-1"}`}>
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`block py-3 text-2xl font-light tracking-tight transition-colors duration-150 ${
+                    className={`block transition-all duration-200 ${
+                      mobileServicesOpen ? "py-1.5 text-lg" : "py-3 text-[22px]"
+                    } font-light tracking-tight ${
                       pathname === item.href ? "text-gray-900" : "text-gray-400 hover:text-gray-900"
                     }`}
                   >
@@ -144,25 +146,41 @@ const Navbar: React.FC = () => {
                 </li>
               ))}
 
-              <li className="mt-2">
-                <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-gray-300 mb-3 mt-2">
-                  Services
-                </p>
-                <ul className="space-y-0">
-                  {workItems.map((item) => (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={() => setMobileOpen(false)}
-                        className={`block py-2.5 text-base font-light transition-colors duration-150 ${
-                          pathname === item.href ? "text-gray-900" : "text-gray-400 hover:text-gray-900"
-                        }`}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+              <li className="mt-1">
+                <button
+                  type="button"
+                  onClick={() => setMobileServicesOpen((open) => !open)}
+                  className={`flex w-full items-center justify-between text-left font-light tracking-tight text-gray-400 transition-all duration-200 hover:text-gray-900 ${
+                    mobileServicesOpen ? "py-1.5 text-lg" : "py-3 text-[22px]"
+                  }`}
+                >
+                  <span>Services</span>
+                  <ChevronDown
+                    size={14}
+                    strokeWidth={1.5}
+                    className={`transition-transform duration-200 ${
+                      mobileServicesOpen ? "rotate-180" : ""
+                    } text-gray-400`}
+                  />
+                </button>
+
+                {mobileServicesOpen && (
+                  <ul className="mt-1 space-y-0.5 overflow-hidden transition-all duration-200">
+                    {workItems.map((item) => (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setMobileOpen(false)}
+                          className={`block py-1.5 text-[15px] font-light leading-snug transition-colors duration-150 ${
+                            pathname === item.href ? "text-gray-900" : "text-gray-400 hover:text-gray-900"
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             </ul>
 
@@ -171,7 +189,7 @@ const Navbar: React.FC = () => {
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-gray-500 hover:text-gray-900 transition-colors"
+                className="flex items-center justify-center gap-2 rounded-full bg-black px-4 py-3 text-[11px] font-mono tracking-[0.2em] uppercase text-white transition-colors duration-200 hover:bg-gray-800"
               >
                 Start a Project
                 <ArrowUpRight size={12} strokeWidth={1.5} />

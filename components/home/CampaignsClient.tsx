@@ -37,9 +37,7 @@ export default function CampaignsClient({ campaigns }: CampaignsClientProps) {
             Selected Work
           </span>
           <div className="flex items-center gap-4">
-            <span className="text-[11px] font-mono text-gray-300">
-              {String(campaigns.length).padStart(2, "0")} Projects
-            </span>
+        
             <Link
               href="/projects"
               className="inline-flex items-center gap-2 rounded-full border border-stone-300 px-4 py-2 text-[10px] font-mono tracking-[0.2em] uppercase text-stone-700 transition-colors duration-300 hover:border-stone-900 hover:text-stone-900"

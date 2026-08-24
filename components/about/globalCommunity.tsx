@@ -39,14 +39,14 @@ const interactiveLocations: InteractiveLocation[] = [
     projects: "30+ Projects",
   },
   {
-    id: "brisbane",
-    name: "East Brisbane",
-    longitude: 153.0434,
-    latitude: -27.481,
+    id: "sydney-east",
+    name: "North Sydney",
+    longitude: 151.2073,
+    latitude: -33.8406,
     highlightIds: ["AU"],
     description:
-      "Our satellite design hub focuses on tropical hospitality and coastal residential work.",
-    projects: "12+ Projects",
+      "Our primary studio leads concept development, project management, and strategic design oversight.",
+    projects: "30+ Projects",
   },
   {
     id: "dubai",

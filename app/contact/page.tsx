@@ -17,12 +17,12 @@ const studioLocations = [
     ],
   },
   {
-    city: "East Brisbane",
+    city: "North Sydney",
     details: [
       { label: "Studio", value: "OHA Design Workshop" },
-      { label: "Address", value: "Suite 179, 42 Manilla Street, East Brisbane QLD 4169" },
-      { label: "Mobile", value: "0413 977 577", href: "tel:0413977577" },
-      { label: "Fax", value: "+61 2 8076 3064" },
+      { label: "Address", value: "Level 10, 122 Arthur Street, North Sydney NSW 2060" },
+      { label: "Phone", value: "+61 2 8033 0564", href: "tel:+61280330564" },
+      { label: "Email", value: "studio@ohadesign.com.au", href: "mailto:studio@ohadesign.com.au" },
     ],
   },
 ];

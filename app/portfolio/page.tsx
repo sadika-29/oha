@@ -103,9 +103,9 @@ export default function PortfolioPage() {
                 </div>
 
                 <div>
-                  <p className="font-medium text-gray-900">East Brisbane</p>
-                  <p>Suite 179 | 42 Manilla Street</p>
-                  <p>East Brisbane | QLD 4169</p>
+                  <p className="font-medium text-gray-900">North Sydney</p>
+                  <p>Level 10 | 122 Arthur Street</p>
+                  <p>North Sydney | NSW 2060</p>
                 </div>
               </div>
             </div>
